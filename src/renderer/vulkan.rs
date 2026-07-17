@@ -10,6 +10,7 @@ use std::{
     ffi::CString,
     mem::{self, size_of},
 };
+use ash::vk::TaggedStructure;
 pub(crate) use texture::*;
 
 #[cfg(feature = "dynamic-rendering")]
@@ -218,7 +219,7 @@ pub(crate) fn create_vulkan_pipeline(
         rendering_info
     };
     #[cfg(feature = "dynamic-rendering")]
-    let pipeline_info = pipeline_info.push_next(&mut rendering_info);
+    let pipeline_info = pipeline_info.push(&mut rendering_info);
 
     let pipeline = unsafe {
         device
